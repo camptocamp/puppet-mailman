@@ -1,5 +1,7 @@
 define mailman::config($ensure=present, $variable, $value, $mlist) {
 
+  include concat::setup
+
   if !defined(Concat["/var/lib/mailman/lists/${mlist}/puppet-config.conf"]) {
     concat {"/var/lib/mailman/lists/${mlist}/puppet-config.conf":
       owner => root,

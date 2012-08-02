@@ -1,7 +1,16 @@
 define mailman::config($ensure=present, $variable, $value, $mlist) {
-  common::concatfilepart {$name:
+
+  if !defined(Concat["/var/lib/mailman/lists/${mlist}/puppet-config.conf"]) {
+    concat {"/var/lib/mailman/lists/${mlist}/puppet-config.conf":
+      owner => root,
+      group => root,
+      mode  => '0644',
+    }
+  }
+
+  concat::fragment {$name:
     ensure  => $ensure,
-    file    => "/var/lib/mailman/lists/${mlist}/puppet-config.conf",
+    target  => "/var/lib/mailman/lists/${mlist}/puppet-config.conf",
     content => template("mailman/config_list.erb"),
     notify  => Exec["load configuration $variable on $mlist"],
     require => [Class["mailman"], Maillist[$mlist]],

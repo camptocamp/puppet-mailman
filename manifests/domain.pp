@@ -1,7 +1,7 @@
 define mailman::domain ($ensure, $vhost, $urlpath="/cgi-bin/mailman/") {
   postfix::transport {"${name}":
     ensure      => present,
-    destination => "mailman:",
+    destination => "mailman",
   }
 
   file {"/etc/mailman/mm_cfg.py":

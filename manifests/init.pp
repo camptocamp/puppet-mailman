@@ -4,8 +4,11 @@ class mailman {
   }
 
   service {"mailman":
-    ensure  => running,
-    require => Package["mailman"],
+    ensure     => running,
+    require    => Package["mailman"],
+    hasstatus  => false,
+    hasrestart => true,
+    pattern    => '/usr/lib/mailman/bin/mailmanctl -s -q start',
   }
 
   exec {"mailman set password":

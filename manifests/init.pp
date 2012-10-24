@@ -1,4 +1,15 @@
 class mailman {
+
+  if !$mailman_password {
+    fail 'Need $mailman_password variable'
+  }
+
+  if $mailmanowner {
+    $postmaster = $mailmanowner
+  } else {
+    $postmaster = "postmaster@${::domain}"
+  }
+
   package {'mailman':
     ensure => present,
   }
@@ -11,15 +22,15 @@ class mailman {
     pattern    => '/usr/lib/mailman/bin/mailmanctl -s -q start',
   }
 
-  exec {'mailman set password':
-    command => '/usr/sbin/mmsitepass ree2tahG',
-    creates => '/var/lib/mailman/data/adm.pw',
-    require => Package['mailman'],
-  }
-
-  if $mailmanowner {
-    $postmaster = $mailmanowner
-  } else {
-    $postmaster = "postmaster@${::domain}"
+  # Based on mmsitepass python script, we do not need to use it
+  # as it simply output the SHA1 in a file. This file cannot be configured
+  # in mailman options. We just have to take care of the file rights.
+  $hased_pass = sha1($mailman_password)
+  file {'/var/lib/mailman/data/adm.pw':
+    ensure  => present,
+    owner   => 'root',
+    group   => 'list',
+    mode    => '0640',
+    content => $hased_pass,
   }
 }

@@ -13,7 +13,7 @@ define mailman::config($ensure=present, $variable, $value, $mlist) {
   concat::fragment {$name:
     ensure  => $ensure,
     target  => "/var/lib/mailman/lists/${mlist}/puppet-config.conf",
-    content => template("mailman/config_list.erb"),
+    content => template('mailman/config_list.erb'),
     notify  => Exec["load configuration $variable on $mlist"],
     require => [Class["mailman"], Maillist[$mlist]],
   }

@@ -1,14 +1,4 @@
-class mailman {
-
-  if !$mailman_password {
-    fail 'Need $mailman_password variable'
-  }
-
-  if $mailmanowner {
-    $postmaster = $mailmanowner
-  } else {
-    $postmaster = "postmaster@${::domain}"
-  }
+class mailman($mailman_password, $postmaster="postmaster@${::domain}") {
 
   package {'mailman':
     ensure => present,

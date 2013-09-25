@@ -1,6 +1,12 @@
-define mailman::instance ($ensure=present, $vhost, $urlpath='/cgi-bin/mailman/') {
-  mailman::vhost {$vhost:
-    ensure => $ensure,
+define mailman::instance(
+  $ensure  = 'present',
+  $vhost   = undef,
+  $urlpath = '/cgi-bin/mailman/',
+) {
+  if $vhost != undef {
+    mailman::vhost {$vhost:
+      ensure => $ensure,
+    }
   }
   mailman::domain {$name:
     ensure  => $ensure,

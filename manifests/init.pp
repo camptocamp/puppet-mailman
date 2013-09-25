@@ -1,4 +1,7 @@
-class mailman($mailman_password, $postmaster="postmaster@${::domain}") {
+class mailman(
+  $mailman_password,
+  $postmaster="postmaster@${::domain}",
+) {
 
   package {'mailman':
     ensure => present,

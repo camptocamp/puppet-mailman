@@ -1,6 +1,6 @@
 class mailman(
   $mailman_password,
-  $postmaster="postmaster@${::domain}",
+  $postmaster = "postmaster@${::domain}",
 ) {
 
   package {'mailman':

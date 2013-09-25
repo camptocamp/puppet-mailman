@@ -1,7 +1,8 @@
 define mailman::domain(
   $ensure,
-  $vhost   = undef,
-  $urlpath = '/cgi-bin/mailman/',
+  $vhost    = undef,
+  $urlpath  = '/cgi-bin/mailman/',
+  $language = 'en',
 ) {
   postfix::transport {$name:
     ensure      => present,

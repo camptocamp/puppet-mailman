@@ -76,6 +76,10 @@ add_virtualhost(DEFAULT_URL_HOST, DEFAULT_EMAIL_HOST)
 DEFAULT_SERVER_LANGUAGE = '<%= @language %>'
 
 #-------------------------------------------------------------
+# Path where to find language templates
+TEMPLATE_DIR = '/usr/share/mailman'
+
+#-------------------------------------------------------------
 # Iirc this was used in pre 2.1, leave it for now
 USE_ENVELOPE_SENDER    = 0              # Still used?
 

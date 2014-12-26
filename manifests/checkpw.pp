@@ -1,5 +1,4 @@
 define mailman::checkpw(
-  $name,
   $url,
   $password,
   $ensure      = present,

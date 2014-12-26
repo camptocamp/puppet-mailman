@@ -1,0 +1,4 @@
+---
+fixtures:
+  symlinks:
+    mailman: "#{source_dir}"

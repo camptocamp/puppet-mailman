@@ -1,4 +1,9 @@
-define mailman::config($ensure=present, $variable, $value, $mlist) {
+define mailman::config(
+  $variable,
+  $value,
+  $mlist,
+  $ensure = present,
+) {
 
   if !defined(Concat["/var/lib/mailman/lists/${mlist}/puppet-config.conf"]) {
     concat {"/var/lib/mailman/lists/${mlist}/puppet-config.conf":
@@ -12,12 +17,12 @@ define mailman::config($ensure=present, $variable, $value, $mlist) {
     ensure  => $ensure,
     target  => "/var/lib/mailman/lists/${mlist}/puppet-config.conf",
     content => template('mailman/config_list.erb'),
-    notify  => Exec["load configuration $variable on $mlist"],
-    require => [Class["mailman"], Maillist[$mlist]],
+    notify  => Exec["load configuration ${variable} on ${mlist}"],
+    require => [Class['mailman'], Maillist[$mlist]],
   }
-  exec {"load configuration $variable on $mlist":
+  exec {"load configuration ${variable} on ${mlist}":
     refreshonly => true,
-    command     => "config_list -i /var/lib/mailman/lists/${mlist}/puppet-config.conf $mlist",
-    onlyif      => "config_list -i /var/lib/mailman/lists/${mlist}/puppet-config.conf -c $mlist"
+    command     => "config_list -i /var/lib/mailman/lists/${mlist}/puppet-config.conf ${mlist}",
+    onlyif      => "config_list -i /var/lib/mailman/lists/${mlist}/puppet-config.conf -c ${mlist}"
   }
 }

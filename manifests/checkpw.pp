@@ -1,4 +1,10 @@
-define mailman::checkpw($ensure=present, $mailman_bin='/usr/lib/mailman/bin', $name, $url, $password) {
+define mailman::checkpw(
+  $name,
+  $url,
+  $password,
+  $ensure      = present,
+  $mailman_bin = '/usr/lib/mailman/bin',
+) {
 
   #Note: URL must look like http://lists.domain.ltd/cgi-bin/mailman/admin/${list_name}
 

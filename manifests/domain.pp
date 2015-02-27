@@ -10,13 +10,13 @@ define mailman::domain(
   }
 
   file {'/etc/mailman/mm_cfg.py':
-    ensure  => present,
+    ensure  => file,
     content => template('mailman/mm_cfg.py.erb'),
     require => Package['mailman'],
   }
 
   file {'/etc/mailman/apache.conf':
-    ensure  => present,
+    ensure  => file,
     content => template('mailman/apache.conf.erb'),
     require => Package['mailman'],
   }

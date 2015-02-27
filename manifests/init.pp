@@ -20,7 +20,7 @@ class mailman(
   # in mailman options. We just have to take care of the file rights.
   $hased_pass = sha1($mailman_password)
   file {'/var/lib/mailman/data/adm.pw':
-    ensure  => present,
+    ensure  => file,
     owner   => 'root',
     group   => 'list',
     mode    => '0640',

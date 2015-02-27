@@ -23,6 +23,6 @@ define mailman::config(
   exec {"load configuration ${variable} on ${mlist}":
     refreshonly => true,
     command     => "config_list -i /var/lib/mailman/lists/${mlist}/puppet-config.conf ${mlist}",
-    onlyif      => "config_list -i /var/lib/mailman/lists/${mlist}/puppet-config.conf -c ${mlist}"
+    onlyif      => "config_list -i /var/lib/mailman/lists/${mlist}/puppet-config.conf -c ${mlist}",
   }
 }

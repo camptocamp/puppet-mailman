@@ -7,12 +7,18 @@ class mailman(
     ensure => present,
   }
 
+  if $::os['name'] == 'Debian' and $::os['release']['major'] == '7' {
+    $stale_opt = ''
+  } else {
+    $stale_opt = '-s '
+  }
+
   service {'mailman':
     ensure     => running,
     require    => Package['mailman'],
     hasstatus  => false,
     hasrestart => true,
-    pattern    => '/usr/lib/mailman/bin/mailmanctl -s -q start',
+    pattern    => "/usr/lib/mailman/bin/mailmanctl ${stale_opt}-q start",
   }
 
   # Based on mmsitepass python script, we do not need to use it
